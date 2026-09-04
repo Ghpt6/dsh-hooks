@@ -30,29 +30,20 @@ workspace=家目录时不可用，走 `workspace-write` 会因无沙箱后端而
 
 > PermissionRequest 绑定的是 `ask_user_question` 工具调用，与沙箱审批策略无关，任何权限预设下都会触发。
 
-## 用法 A：动态 cordis 插件（推荐，免重启）
-
-1. 把当前会话切到 **`cordis` 预设**（新建会话时选 `cordis`；`standard` 没有 `cordis_*` 工具）。
-2. 在该会话里用 `cordis_define`，`code.host` 返回 `hook.body.js` 里的对象字面量，`config` 填上面的字段。
-3. `cordis_run` 激活即可，即时生效、可随时 `cordis_stop`/回滚。
-
-> 动态插件只存在于当前进程内存，重启即消失；要长期保留就用下面的用法 B。
-
-## 用法 B：组合文件持久化（需重启 DSH 进程）
+## 用法
 
 1. 把本目录装进 profile：
    ```sh
-   dsh plugin --profile web add file:./dsh-hook
+   dsh plugin --profile web add github:Ghpt6/dsh-hooks
    ```
-   （或按你环境里外部插件惯例落到 `@dsh-external/*`）
-2. 在 `C:\Users\Administrator\.dsh\profiles\web\cordis.patch.yml` 加一行：
+2. 在 `~\.dsh\cordis.patch.yml` 加一行：
    ```yaml
    - insert:
        - id: dsh-hook
          name: '@Ghpt6/dsh-hooks'
          config:
-           onPermissionRequest: 'cmd /c "C:\\hooks\\on-permission.bat"'
-           onStop: 'cmd /c "C:\\hooks\\on-stop.bat"'
+           onPermissionRequest: 'command'
+           onStop: 'command'
    ```
 3. 重启 `dsh web` 进程生效。
 
