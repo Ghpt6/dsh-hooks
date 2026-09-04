@@ -1,0 +1,17 @@
+{
+  "name": "@Ghpt6/dsh-hooks",
+  "version": "1.0.0",
+  "private": true,
+  "description": "DSH hook: run a command on PermissionRequest (approval/request) and Stop (agent/turn-stopping)",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": {
+      "default": "./lib/index.js"
+    }
+  },
+  "files": [
+    "lib/index.js"
+  ],
+  "license": "MIT"
+}
